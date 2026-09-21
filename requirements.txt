@@ -10,3 +10,4 @@ torch==2.6.0+cu124
 torchvision==0.21.0+cu124
 typer
 pillow
+addict
