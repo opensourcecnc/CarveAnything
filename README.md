@@ -1,7 +1,8 @@
 # CarveAnything
 
 A Python pipeline designed to transform 2D bas relief images into detailed 3D bas-reliefs using Depth Anything 3 depth estimation.
-Note: Currently, the script doesn't convert a normal image to a bas relief, you will have to do this using a different method, such as a local image pipeline, Gemini, ChatGPT, etc.
+
+**Note:** Currently, the script doesn't convert a normal image to a bas relief, you will have to do this using a different method, such as a local image pipeline, Gemini, ChatGPT, etc.
 An example prompt that performs pretty well especially on animals:
 
 ```recreate this exact image as a pure white matte marble bas relief. orthographic view. no frame border. compress depth of the background, enhance the depth of the subject. clear sharp lines.  identify and replicate the subject's particular features. keep the same aspect ratio. very light shadows. high resolution, crisp details, 4k, 8k. use the image as line art control net ```
