@@ -1,12 +1,12 @@
 # CarveAnything
 
-An end-to-end Python pipeline designed to transform 2D images into detailed 3D bas-reliefs using state-of-the-art monocular depth estimation (`DA3MONO-LARGE`).
+A Python pipeline designed to transform 2D bas relief images into detailed 3D bas-reliefs using Depth Anything 3 depth estimation.
 
 ## Features
 
-* **Monocular Depth Estimation:** Leverages `DA3MONO-LARGE` for highly detailed depth map prediction.
-* **Automated 3D Relief Generation:** Converts depth values directly into 3D mesh representations (STL/OBJ).
-* **Interactive CLI Interface:** Simple, prompt-guided execution with no complex command-line arguments needed.
+* **Depth Estimation:** Uses Depth Anything 3 for highly detailed depth map prediction.
+* **Automated 3D Relief Generation:** Converts depth map directly into a mesh (OBJ).
+* **Interactive CLI Interface:** Simple, prompt-guided execution with command-line arguments.
 * **GPU Accelerated:** Optimized for CUDA-enabled PyTorch execution.
 * **CNC / 3D-Printing Ready:** Designed to generate usable 3D geometries for CAM software, carving, and 3D printing.
 
@@ -32,8 +32,6 @@ cd CarveAnything
 ```
 
 ### 2. Set Up a Virtual Environment
-
-Isolate project dependencies by creating a Python virtual environment:
 
 **On Windows (PowerShell):**
 ```powershell
@@ -62,30 +60,13 @@ pip install -r requirements.txt
 
 `CarveAnything` requires model weights from the Hugging Face `DA3MONO-LARGE` repository to perform depth estimation.
 
-1. Navigate to the Hugging Face repository: [depth-anything/DA3MONO-LARGE](https://huggingface.co/depth-anything/DA3MONO-LARGE/tree/main)
+1.The Hugging Face repository: [depth-anything/DA3MONO-LARGE](https://huggingface.co/depth-anything/DA3MONO-LARGE/tree/main)
 
-2. Download the following required files:
+2. Download the following files:
    * `config.json`
-   * `model.safetensors` *(and any associated configuration files)*
+   * `model.safetensors`
 
-3. Place the downloaded files directly into the pre-existing `da-models/` directory in the root of the repository.
-
-## Project Directory Structure
-
-Verify your repository layout matches the tree structure below:
-
-```text
-CarveAnything/
-├── da-models/
-│   ├── config.json
-│   └── model.safetensors
-├── output/
-│   └── .gitkeep
-├── requirements.txt
-├── CarveAnything.py
-├── .gitignore
-└── README.md
-```
+3. Place the downloaded files into the `da-models/` directory in the root of the repository.
 
 ## Usage
 
@@ -98,8 +79,6 @@ python CarveAnything.py
 ```
 
 Once launched, the script will guide you with step-by-step on-screen prompts to input:
-* **Processing Parameters:** Settings for depth scaling, mesh resolution, or relief preferences.
-* **Image File Path:** The path to your input image (`.jpg`, `.png`, `.webp`).
 
 Generated output files (depth maps and 3D mesh files) will be saved automatically in the `output/` directory.
 
