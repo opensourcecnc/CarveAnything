@@ -7,6 +7,7 @@ An example prompt that performs pretty well especially on animals:
 
 ```recreate this exact image as a pure white matte marble bas relief. orthographic view. no frame border. compress depth of the background, enhance the depth of the subject. clear sharp lines.  identify and replicate the subject's particular features. keep the same aspect ratio. very light shadows. high resolution, crisp details, 4k, 8k. use the image as line art control net ```
 
+**Note:** The Gemini images perform best for the moment
 ## Features
 
 * **Depth Estimation:** Uses Depth Anything 3 for highly detailed depth map prediction.
