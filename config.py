@@ -14,7 +14,7 @@ STITCHING_TOLERANCE = 5
 STITCHING_BOTTOM_TOLERANCE = 5
 
 # Background Processing
-BACKGROUND_THRESHOLD = 0.003       # Threshold (0.0 to 1.0) below which pixels are considered background
+BACKGROUND_THRESHOLD = 0       # Threshold (0.0 to 1.0) below which pixels are considered background
 FLATTEN_BACKGROUND = True         # Toggle to enable/disable background flattening
 
 # Inference & Image Enhancement Constants
