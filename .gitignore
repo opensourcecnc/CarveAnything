@@ -1,0 +1,13 @@
+# Ignore specific folders
+venv/
+env/
+.venv/
+__pycache__/
+Thumbs.db
+# Ignore everything inside the output folder...
+output/*
+# ...except for the .gitkeep file itself
+!output/.gitkeep
+da-models/*
+# ...except for the .gitkeep file itself
+!da-models/.gitkeep
