@@ -7,4 +7,4 @@ opencv_python_headless==4.12.0.88
 Pillow==11.3.0
 scipy==1.13.1
 torch==2.6.0+cu124
-typer==0.27.2
+typer==0.23.2
