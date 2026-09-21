@@ -76,6 +76,18 @@ pip install -r requirements.txt
 
 ## Usage
 
+Before launching the program, always ensure your virtual environment is activated:
+
+**Windows (PowerShell):**
+```powershell
+.\venv\Scripts\Activate.ps1
+```
+
+**Linux / macOS:**
+```bash
+source venv/bin/activate
+```
+
 `CarveAnything` features an interactive terminal workflow. You do not need to pass command-line arguments when launching the program.
 
 Simply execute the main script:
@@ -84,7 +96,7 @@ Simply execute the main script:
 python CarveAnything.py
 ```
 
-Once launched, the script will guide you with step-by-step on-screen prompts to input:
+Once launched, the script will guide you with step-by-step on-screen prompts to input your parameters.
 
 Generated output files (depth maps and 3D mesh files) will be saved automatically in the `output/` directory.
 
