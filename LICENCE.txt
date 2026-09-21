@@ -1,0 +1,38 @@
+====================================================================
+CarveAnything - SOURCE-AVAILABLE LICENSE
+Copyright (c) 2026 Mihai Moldoveanu - Open Source CNC
+====================================================================
+
+1. PERMITTED USES
+Subject to the terms of this License, the Licensor hereby grants you a 
+worldwide, non-exclusive, royalty-free license to download, view, 
+modify, and run this software locally on your personal or business 
+hardware. 
+
+You are explicitly PERMITTED to:
+  a) Use this software to process images and generate 3D bas-relief 
+     meshes, depth maps, or renders.
+  b) Use the generated 3D meshes/renders for any personal OR COMMERCIAL 
+     purpose, including selling 3D prints, CNC wood/stone carvings, 
+     digital assets, games, videos, or physical goods.
+  c) Modify the code for your own internal or personal workflow needs.
+
+2. RESTRICTIONS (ANTI-SAAS / NO-HOSTING)
+You are STRICTLY PROHIBITED from:
+  a) Hosting, deploying, or running this software (or any modified version 
+     or derivative work of this software's core logic) on a network server 
+     where it is exposed as a service to third parties.
+  b) Integrating this software into a web application, Mobile App, 
+     Software-as-a-Service (SaaS), paid API, or automated cloud pipeline.
+  c) Charging end-users, subscribers, or clients specifically for the 
+     automated execution of this software.
+
+3. COMMERCIAL EXTENSION LICENSE
+If you wish to host this software, offer it as an API, or build a web app 
+around it, you must obtain a separate commercial SaaS license from the 
+Licensor. Contact: mihai.moldoveanu@gmail.com
+
+4. NO WARRANTY & LIMITATION OF LIABILITY
+THIS SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
+IMPLIED. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR 
+ANY CLAIM, DAMAGES, OR OTHER LIABILITY ARISING FROM THE USE OF THIS SOFTWARE.
