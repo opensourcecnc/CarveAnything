@@ -102,4 +102,4 @@ Generated output files (depth maps and 3D mesh files) will be saved automaticall
 
 ## License
 
-Distributed under the MIT License. See `LICENSE` for details.
+See `LICENSE` for details.
