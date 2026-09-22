@@ -19,6 +19,7 @@ An example prompt that performs pretty well especially on animals:
 ## Supporting Carve Anything
 
 You can help further development of Carve Anything by contributing to the work or by financially supporting the creator here: [OpenSource CNC Ko-Fi page](https://ko-fi.com/opensourcecnc)
+**Any bit of help counts a lot, so thank you all in advance!**
 
 ## Prerequisites
 
