@@ -12,7 +12,7 @@ from utils.mesh import create_mesh, export_quad_obj
 
 def main():
     print("-" * 60)
-    print("HYBRID DA3 BAS RELIEF MESH GENERATOR")
+    print("DA3 BASED BAS RELIEF MESH GENERATOR")
     print("-" * 60)
 
     # Automatically construct numeric mapping (1-indexed) directly from config.CURVE_PRESETS
@@ -62,10 +62,10 @@ def main():
 
     print("\nSelect Depth-Anything Tiling Strategy:")
     print("  [1] 1 Tile   (Native, passes PROCESS_RES directly)")
-    print("  [2] 4 Tiles  (2x2 Grid, runs model at PROCESS_RES // 2)")
-    print("  [3] 9 Tiles  (3x3 Grid, runs model at PROCESS_RES // 3)")
-    print("  [4] 16 Tiles (4x4 Grid, runs model at PROCESS_RES // 4)")
-    print("  [5] 25 Tiles (4x4 Grid, runs model at PROCESS_RES // 5)")
+    print("  [2] 9 Tiles  (2x2 Grid, runs model at PROCESS_RES // 2)")
+    print("  [3] 27 Tiles  (3x3 Grid, runs model at PROCESS_RES // 3)")
+    print("  [4] 49 Tiles (4x4 Grid, runs model at PROCESS_RES // 4)")
+    print("  [5] 81 Tiles (5x5 Grid, runs model at PROCESS_RES // 5)")
 
     tile_choice = input("Enter selection (1-5) [Default: 2]: ").strip()
     tile_grid_mode = (
@@ -132,7 +132,7 @@ def main():
     relief_top = apply_bas_relief(
         top[0], base_name_top, flatten_background, background_threshold
     )
-    #relief_top = top[0]
+    # relief_top = top[0]
 
     img_top = Image.open(top[1]).convert("L")
     if img_top.size != (top[0].shape[1], top[0].shape[0]):

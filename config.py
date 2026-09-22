@@ -19,7 +19,7 @@ FLATTEN_BACKGROUND = True         # Toggle to enable/disable background flatteni
 
 # Inference & Image Enhancement Constants
 GAMMA_BRIGHTEN = 0.3          # Gamma applied to the source image
-PROCESS_RES = 3500            # Global Inference & Processing resolution
+PROCESS_RES = 3000            # Global Inference & Processing resolution
 BAS_RELIEF_GAMMA = 0.7        # Gamma curve scaling for bas-relief structure
 FLATNESS_TOLERANCE = 1e-5  # Number of flattening iterations
 
