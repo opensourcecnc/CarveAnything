@@ -16,6 +16,10 @@ An example prompt that performs pretty well especially on animals:
 * **GPU Accelerated:** Optimized for CUDA-enabled PyTorch execution.
 * **CNC / 3D-Printing Ready:** Designed to generate usable 3D geometries for CAM software, carving, and 3D printing.
 
+## Supporting Carve Anything
+
+You can help further development of Carve Anything by contributing to the work or by financially supporting the creator here: [OpenSource CNC Ko-Fi page](https://ko-fi.com/opensourcecnc)
+
 ## Prerequisites
 
 Before setting up `CarveAnything`, ensure you have the following installed on your host system:
