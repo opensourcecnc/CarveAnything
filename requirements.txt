@@ -11,3 +11,4 @@ torchvision==0.21.0+cu124
 typer
 pillow
 addict
+gradio
