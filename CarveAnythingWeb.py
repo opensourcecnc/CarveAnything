@@ -220,4 +220,5 @@ if __name__ == "__main__":
         server_name="127.0.0.1",
         server_port=7860,
         allowed_paths=[out_dir],
+        inbrowser=True,
     )
