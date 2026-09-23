@@ -65,6 +65,13 @@ python -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
+If the requirements installation fails on xformers, try:
+
+```bash
+pip install --no-build-isolation -r requirements.txt
+```
+
+
 > **Note on PyTorch / CUDA:** `requirements.txt` configures **CUDA 12.4** PyTorch builds by default. If running on CPU only or requiring a different CUDA release, refer to the [PyTorch Get Started guide](https://pytorch.org/get-started/locally/).
 
 ## Model Weights Setup
