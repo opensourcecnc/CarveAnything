@@ -34,7 +34,7 @@ PILLOW_BLEND_WEIGHT = 0.85 # HYBRID BLENDING BALANCE (0.0 = Pure Script 1 Flat, 
 
 # 3D Mesh Generation Parameters
 TARGET_WIDTH_MM = 120.0           # Set physical width in mm
-TOTAL_TARGET_THICKNESS_MM = 5.0   # Absolute maximum height of final mesh
+TOTAL_TARGET_THICKNESS_MM = 16.0   # Absolute maximum height of final mesh
 RELIEF_AMPLITUDE_MM = 18.0         # Total budget for 3D displacement shapes
 DETAIL_PERCENT = 0.05             # Budget % given to fine image texture (0.0 = pure depth map)
 DOWNSAMPLE = 1                    # Mesh downsampling step factor (1 = full res)

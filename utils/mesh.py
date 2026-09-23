@@ -1,4 +1,5 @@
 import numpy as np
+import cv2
 import config
 
 
@@ -7,27 +8,38 @@ def create_mesh(
     top_detail,
     bot_depth=None,
     bot_detail=None,
-    width=config.TARGET_WIDTH_MM,
-    amplitude=config.RELIEF_AMPLITUDE_MM,
-    base_thickness=config.TOTAL_TARGET_THICKNESS_MM,
+    size=config.TARGET_WIDTH_MM,
+    target_thickness=config.TOTAL_TARGET_THICKNESS_MM,
     detail_weight=config.DETAIL_PERCENT,
-    min_thickness=1.0,
     downsample=config.DOWNSAMPLE,
     closed=True,
 ):
-    top_d = np.max(top_depth) - top_depth[::downsample, ::downsample]
-    top_dt = top_detail[::downsample, ::downsample]
+    spatial_scale = np.sqrt(downsample)
+    H_orig, W_orig = top_depth.shape[:2]
+    new_W = max(2, int(round(W_orig * spatial_scale)))
+    new_H = max(2, int(round(H_orig * spatial_scale)))
+    top_depth_resized = cv2.resize(top_depth, (new_W, new_H), interpolation=cv2.INTER_AREA)
+    top_detail_resized = cv2.resize(top_detail, (new_W, new_H), interpolation=cv2.INTER_AREA)
+    top_d = np.max(top_depth_resized) - top_depth_resized
+    top_dt = top_detail_resized
     H, W = top_d.shape
-    height = width * (H / W)
+    if (W > H):
+        width = size
+        height = size * (H / W)
+    else:
+        height = size
+        width = size * (W / H)
 
     def compute_z(d, dt, detail_weight):
-        return ((1.0 - detail_weight) * d + detail_weight * dt) * amplitude
+        return (1.0 - detail_weight) * d + detail_weight * dt
 
-    raw_top = np.flipud(compute_z(top_d, top_dt, detail_weight))
-    Z_top = base_thickness + raw_top
+    Z_top = np.flipud(compute_z(top_d, top_dt, detail_weight))
     X, Y = np.meshgrid(np.linspace(0, width, W), np.linspace(0, height, H))
 
     if not closed:
+        z_min, z_max = np.min(Z_top), np.max(Z_top)
+        if z_max > z_min:
+            Z_top = (Z_top - z_min) / (z_max - z_min) * target_thickness
         vertices = np.stack([X, Y, Z_top], axis=-1).reshape(-1, 3)
         idx = np.arange(H * W).reshape(H, W)
         v0 = idx[:-1, :-1].ravel()
@@ -37,11 +49,12 @@ def create_mesh(
         faces = np.column_stack([v0, v1, v2, v3])
         return vertices.astype(np.float32), faces
 
-    bot_d = np.max(bot_depth) - bot_depth[::downsample, ::downsample]
+    bot_d = np.max(bot_depth) - bot_depth[::step, ::step]
     bot_dt = (
-        np.max(np.fliplr(bot_detail)) - bot_detail[::downsample, ::downsample]
+        np.max(np.fliplr(bot_detail)) - bot_detail[::step, ::step]
     )
     raw_bot = np.fliplr(np.flipud(compute_z(bot_d, bot_dt, detail_weight)))
+
     Z_bottom = -raw_bot
     diff = Z_top - Z_bottom
     mask = diff < min_thickness
@@ -57,6 +70,12 @@ def create_mesh(
             np.stack([X, Y, Z_bottom], axis=-1).reshape(-1, 3),
         ]
     )
+
+    z_vals = vertices[:, 2]
+    current_thickness = np.max(z_vals) - np.min(z_vals)
+    if current_thickness > 0:
+        vertices[:, 2] = (z_vals - np.min(z_vals)) / current_thickness * target_thickness
+
     idx = np.arange(H * W).reshape(H, W)
     offset = H * W
     v0 = idx[:-1, :-1].ravel()
@@ -90,9 +109,7 @@ def create_mesh(
         ]
     )
     faces = np.vstack([top_faces, bot_faces, l_edge, r_edge, t_edge, b_edge])
-
     return vertices.astype(np.float32), faces
-
 
 def export_quad_obj(filename, vertices, faces, batch_size=10000):
     with open(filename, "w") as f:

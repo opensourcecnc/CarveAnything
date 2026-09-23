@@ -128,7 +128,7 @@ def main():
         )
 
     # Process Top View Image
-    top = process_image(top_image_path, tile_grid_mode)
+    top = process_image(top_image_path, tile_grid_mode, False, config.PROCESS_RES)
     relief_top = apply_bas_relief(
         top[0], base_name_top, flatten_background, background_threshold
     )
@@ -145,7 +145,7 @@ def main():
 
     # Process Bottom View Image (if single-sided, fill zeros/ones)
     if has_bottom:
-        bottom = process_image(bottom_image_path, tile_grid_mode)
+        bottom = process_image(bottom_image_path, tile_grid_mode, False, config.PROCESS_RES)
         relief_bottom = apply_bas_relief(
             bottom[0], base_name_bottom, flatten_background, background_threshold
         )

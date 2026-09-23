@@ -34,14 +34,14 @@ def generate_tile(tile_h: int, tile_w: int, x0: int, y0: int, src_cv: np.ndarray
     return (tile_depth - tile_depth.min()) / (tile_depth.max() - tile_depth.min() + 1e-6)
 
 
-def process_image(image_path: str, tile_grid_mode: int) -> list:
+def process_image(image_path: str, tile_grid_mode: int, force_depth: bool, process_res: int) -> list:
     """Executes global depth guidance, multi-tile grid inference, overlap blending, and 16-bit depth export."""
     base_name = os.path.splitext(os.path.basename(image_path))[0]
     source_out_path = os.path.join(config.OUTPUT_DIR, f"{base_name}_source.png")
     depth_out_path = os.path.join(config.OUTPUT_DIR, f"{base_name}_depth.png")
 
     # Skip processing if cached 16-bit depth file already exists on disk
-    if os.path.exists(depth_out_path):
+    if os.path.exists(depth_out_path) and not force_depth:
         print(f"\n[SKIP] Existing depth map found: {depth_out_path}")
         depth = cv2.imread(depth_out_path, cv2.IMREAD_UNCHANGED)
         if depth is None:
@@ -56,7 +56,7 @@ def process_image(image_path: str, tile_grid_mode: int) -> list:
 
     src_cv = cv2.imread(image_path)
     src_h, src_w = src_cv.shape[:2]
-    scale = config.PROCESS_RES / max(src_h, src_w)
+    scale = process_res / max(src_h, src_w)
     w = int(round(src_w * scale))
     h = int(round(src_h * scale))
 
@@ -158,7 +158,7 @@ def process_image(image_path: str, tile_grid_mode: int) -> list:
         y_coords_all = y_coords + y_coords_between
 
         print(f"\nMatrix size: {len(x_coords_all)} by {len(y_coords_all)}")
-        model_res = max(1, config.PROCESS_RES // tile_grid_mode) if pass_index == 0 else max(1, config.PROCESS_RES // (tile_grid_mode * 2))
+        model_res = max(1, process_res // tile_grid_mode) if pass_index == 0 else max(1, process_res // (tile_grid_mode * 2))
 
         count = 0
         for x in x_coords_all:
@@ -213,7 +213,7 @@ def process_image(image_path: str, tile_grid_mode: int) -> list:
     final_depth /= final_depth.max() + 1e-6
 
     save_h, save_w = final_depth.shape
-    rescale = config.PROCESS_RES / max(save_h, save_w)
+    rescale = process_res / max(save_h, save_w)
     if rescale != 1.0:
         new_w = int(round(save_w * rescale))
         new_h = int(round(save_h * rescale))
