@@ -65,6 +65,13 @@ python -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
+If the requirements installation fails on depth_anything_3, try:
+
+```bash
+pip install depth_anything_3 --ignore-requires-python
+pip install -r requirements.txt
+```
+
 If the requirements installation fails on xformers, try:
 
 ```bash
