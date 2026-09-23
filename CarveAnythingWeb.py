@@ -154,7 +154,7 @@ def run_pipeline(top_image_path, bottom_image_path, macro_preset_name, curve_str
         if hasattr(engine, "unload"):
             engine.unload()
         log_msg = f"SUCCESS!\nFull Mesh Saved: {os.path.abspath(mesh_out_path)}\nPreview Mesh Loaded: {os.path.abspath(preview_out_path)}"
-        return preview_out_path, log_msg
+        return preview_out_path, log_msg, False
     except Exception as e:
         import traceback
         return None, f"Execution Error: {str(e)}\n\n{traceback.format_exc()}"
@@ -262,7 +262,7 @@ def build_app():
                         mesh_long_side = gr.Slider(
                             label="Longest Side Size (mm)",
                             minimum=0,
-                            maximum=10000,
+                            maximum=1000,
                             value=120,
                             step=1,
                         )
@@ -338,7 +338,7 @@ def build_app():
                 mesh_long_side,
                 mesh_thickness,
             ],
-            outputs=[mesh_3d, status_box],
+            outputs=[mesh_3d, status_box, force_depth],
         )
     return app
 
