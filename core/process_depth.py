@@ -109,7 +109,22 @@ def flatten_surface (hybrid_surface):
     result_flattened_tensor = hybrid_surface - surface
     result_flattened_tensor -= result_flattened_tensor.min()
     result_flattened_tensor /= (result_flattened_tensor.max() + 1e-6)
-    return result_flattened_tensor.cpu().numpy()
+    return result_flattened_tensor
+
+def smooth_harsh_slopes(relief):
+    low_freq = cv2.GaussianBlur(relief, (0, 0), sigmaX=1.0)
+    high_freq = relief - low_freq
+    hf_strength = cv2.GaussianBlur(np.abs(high_freq), (0, 0), sigmaX=2.0)
+    gx = cv2.Sobel(relief, cv2.CV_32F, 1, 0, ksize=3) / 8.0
+    gy = cv2.Sobel(relief, cv2.CV_32F, 0, 1, ksize=3) / 8.0
+    slope = np.sqrt(gx * gx + gy * gy)
+    median = np.median(hf_strength)
+    mad = np.median(np.abs(hf_strength - median))
+    hf_threshold = median + 2.0 * mad
+    teeth = ((slope > 0.003) & (hf_strength > hf_threshold)).astype(np.uint8)
+    teeth = cv2.dilate(teeth, np.ones((3, 3), np.uint8), iterations=50)
+    blend = cv2.GaussianBlur(teeth.astype(np.float32), (0, 0), sigmaX=4.0)
+    return relief - blend * high_freq
 
 def apply_bas_relief(depth, image_path, flatten_background, background_threshold = config.BACKGROUND_THRESHOLD):
     basrelief_out_path = os.path.join(config.OUTPUT_DIR, f"{image_path}_basrelief.png")
@@ -135,7 +150,8 @@ def apply_bas_relief(depth, image_path, flatten_background, background_threshold
     gy_np = gy_pillow.cpu().numpy()
     hybrid_surface = poisson_reconstruct_fft(gx_np, gy_np)
     print(f"Flattening the bas relief ...")
-    relief = flatten_surface(hybrid_surface)
+    relief = flatten_surface(hybrid_surface).cpu().numpy()
+    relief = smooth_harsh_slopes (relief)
     cv2.imwrite(basrelief_out_path, (relief * 65535).astype(np.uint16))
     print(f"Saved Smooth bas relief map: {basrelief_out_path}")
     return relief
